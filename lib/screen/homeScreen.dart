@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:line_icons/line_icons.dart';
 
 class HomeScreen extends StatefulWidget {
   final Color bgColor;
@@ -36,11 +37,24 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     return Scaffold(
       appBar: AppBar(title: Text("Home"),
       backgroundColor: widget.bgColor,
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(
+               LineIcons.search
+            ),
+            onPressed: (){
+              Scaffold.of(context).showSnackBar(
+                SnackBar(
+                  content: Text("Search"),
+                )
+              );
+            },
+          )
+        ],
       ),
 
       body: SafeArea(
         child: Container(
-
           child: Text("Ini Home"),
 
         ),

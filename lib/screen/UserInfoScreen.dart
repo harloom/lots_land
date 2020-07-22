@@ -1,5 +1,9 @@
 
 import 'package:flutter/material.dart';
+import 'package:getwidget/getwidget.dart';
+import 'package:line_icons/line_icons.dart';
+import 'package:lots_land/data/models/User.dart';
+import 'package:lots_land/delegate/SearchView.dart';
 
 class InfoScreen extends StatefulWidget {
   final Color bgColor;
@@ -38,18 +42,46 @@ class _InfoScreenState extends State<InfoScreen> with SingleTickerProviderStateM
           backgroundColor: widget.bgColor,
           actions: <Widget>[
             IconButton(
+              icon: Icon(
+                  LineIcons.search
+              ),
+              onPressed: (){
+                showSearch(context: context, delegate: SearchView());
+              },
+            ),
+
+            IconButton(
               icon: Icon(Icons.add_circle_outline,color:
                 Colors.white,),
           )],
         ),
         body: SafeArea(
           child: Container(
-
-            child: Text("Ini Browser"),
-
-          ),
+            child: ListView(
+            children:
+                dummyUser.map<Widget>((user)
+                  => FlatButton(
+                    onPressed: (){
+                    Scaffold.of(context).showSnackBar(
+                      SnackBar(
+                      content: Text(user.nama),
+                      )
+                      );
+                    },
+                    child: GFListTile(
+                       titleText: user.nama,
+                        subtitleText: user.noTelp,
+                        avatar: GFAvatar(
+                         backgroundImage: NetworkImage(user.urlImage),
+                         backgroundColor: Colors.grey[300],
+                      ),
+                    ),
+                  )
+            ).toList(),
+          )
         ),
       ),
+    )
     );
   }
 }
